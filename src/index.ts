@@ -42,6 +42,9 @@ export class EvtEmitter {
         // tslint:disable-next-line:no-unused-expression
         idx >= 0 && callBacks.splice(idx, 1);
       }
+      if (callBacks && callBacks.length === 0) {
+        this.observers.delete(key);
+      }
     }
   }
 
