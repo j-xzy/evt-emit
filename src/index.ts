@@ -4,7 +4,7 @@ export class EvtEmitter {
   private static _instance: EvtEmitter;
 
   // 被监听的事件
-  private observers: Map<symbol | string, any[]> = new Map();
+  private observers: Map<any, any[]> = new Map();
 
   private constructor() { }
 
@@ -18,25 +18,25 @@ export class EvtEmitter {
    * @param id
    * @param callBack
    */
-  public subscribe(id: symbol | string, callBack: any) {
-    if (!this.observers.get(id)) {
-      this.observers.set(id, [callBack]);
+  public subscribe(key: any, callBack: any) {
+    if (!this.observers.get(key)) {
+      this.observers.set(key, [callBack]);
     } else {
-      this.observers.get(id)!.push(callBack);
+      this.observers.get(key)!.push(callBack);
     }
   }
 
   /**
    * 卸载监听（没有callback参数则卸载整个监听）
-   * @param id
+   * @param key
    * @param callBack
    */
-  public unSubscribe(id: symbol | string, callBack?: any) {
+  public unSubscribe(key: any, callBack?: any) {
     // 没有callback参数则卸载整个监听
     if (!callBack) {
-      this.observers.delete(id);
+      this.observers.delete(key);
     } else {
-      const callBacks = this.observers.get(id);
+      const callBacks = this.observers.get(key);
       if (callBacks) {
         const idx = callBacks.indexOf(callBack);
         // tslint:disable-next-line:no-unused-expression
@@ -47,11 +47,11 @@ export class EvtEmitter {
 
   /**
    * 触发监听的事件
-   * @param id
+   * @param key
    * @param p
    */
-  public emit(id: symbol, ...p: any[]) {
-    const callBacks = this.observers.get(id);
+  public emit(key: any, ...p: any[]) {
+    const callBacks = this.observers.get(key);
     if (callBacks) {
       callBacks.forEach((callback) => {
         callback(...p);
