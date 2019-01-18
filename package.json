@@ -1,0 +1,24 @@
+{
+  "name": "EvtEmitter",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whj1995/EvtEmitter"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "build": "yarn clean && tsc -p ./tsconfig.json",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "fix-lint": "tslint -c tslint.json -p tsconfig.json --fix"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
+  }
+}
